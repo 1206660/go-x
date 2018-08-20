@@ -5,7 +5,7 @@ import (
 
 	"github.com/fananchong/go-x/common/k8s"
 	discovery "github.com/fananchong/go-x/common/k8s/serverlist"
-	"github.com/fananchong/go-x/common_services/proto"
+	"github.com/fananchong/go-x/common_services/common/proto"
 	"github.com/fananchong/gotcp"
 	proto1 "github.com/gogo/protobuf/proto"
 )

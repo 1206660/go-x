@@ -9,9 +9,9 @@ import (
 	go_redis_orm "github.com/fananchong/go-redis-orm.v2"
 	"github.com/fananchong/go-x/common"
 	"github.com/fananchong/go-x/common/k8s"
-	"github.com/fananchong/go-x/common_services"
-	"github.com/fananchong/go-x/common_services/db"
-	"github.com/fananchong/go-x/common_services/proto"
+	service "github.com/fananchong/go-x/common_services/common"
+	"github.com/fananchong/go-x/common_services/common/db"
+	"github.com/fananchong/go-x/common_services/common/proto"
 	proto1 "github.com/golang/protobuf/proto"
 	uuid "github.com/satori/go.uuid"
 )
@@ -170,4 +170,3 @@ func (this *Login) loginByDefault(msg *proto.MsgLogin) (uint64, string, error) {
 	}
 	return account.GetUid(), account.GetPswd(), nil
 }
-

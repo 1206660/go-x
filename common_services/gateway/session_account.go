@@ -4,8 +4,8 @@ import (
 	"sync"
 
 	"github.com/fananchong/go-x/common"
-	"github.com/fananchong/go-x/common_services/db"
-	"github.com/fananchong/go-x/common_services/proto"
+	"github.com/fananchong/go-x/common_services/common/db"
+	"github.com/fananchong/go-x/common_services/common/proto"
 	"github.com/fananchong/gotcp"
 )
 
@@ -85,7 +85,7 @@ func (this *SessionAccount) doVerify(data []byte, flag byte) {
 
 	kickmsg := &proto.MsgKick{}
 	kickmsg.UID = this.uid
-	ForwardMsg(int(common.Hub), proto.MsgTypeCmd_Kick, kickmsg)
+	ForwardMsg(int(common.Center), proto.MsgTypeCmd_Kick, kickmsg)
 
 	this.Verify()
 

@@ -1,4 +1,4 @@
-package service
+package common
 
 import (
 	"testing"
@@ -12,4 +12,3 @@ func Test_IpConfig(t *testing.T) {
 		t.Error(err)
 	}
 }
-

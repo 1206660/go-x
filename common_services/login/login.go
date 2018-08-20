@@ -5,8 +5,9 @@ import (
 
 	go_redis_orm "github.com/fananchong/go-redis-orm.v2"
 	"github.com/fananchong/go-x/common"
-	"github.com/fananchong/go-x/common_services/db"
-	"github.com/fananchong/go-x/common_services/proto"
+	service "github.com/fananchong/go-x/common_services/common"
+	"github.com/fananchong/go-x/common_services/common/db"
+	"github.com/fananchong/go-x/common_services/common/proto"
 	"github.com/fananchong/gotcp"
 )
 
@@ -25,26 +26,20 @@ func NewLogin() *Login {
 }
 
 func (this *Login) Start() bool {
+
+	// msg handler
 	if this.cmds == nil {
 		this.cmds = make(map[proto.MsgTypeCmd]LoginMsgHandlerType)
 		this.cmds[proto.MsgTypeCmd_Login] = this.MsgLogin
 	}
 
-	go_redis_orm.SetNewRedisHandler(go_redis_orm.NewDefaultRedisClient)
-
-	// db account
-	this.dbAccountName = common.GetArgs().DbAccount.Name
-	err := go_redis_orm.CreateDB(this.dbAccountName, common.GetArgs().DbAccount.Addrs, common.GetArgs().DbAccount.Password, common.GetArgs().DbAccount.DBIndex)
-	if err != nil {
-		common.GetLogger().Errorln(err)
+	// init ip list
+	if err := service.LoadIpConfig(common.GetAssetsPath() + "ip.toml"); err != nil {
 		return false
 	}
 
-	// db token
-	this.dbTokenName = common.GetArgs().DbToken.Name
-	err = go_redis_orm.CreateDB(this.dbTokenName, common.GetArgs().DbToken.Addrs, common.GetArgs().DbToken.Password, common.GetArgs().DbToken.DBIndex)
-	if err != nil {
-		common.GetLogger().Errorln(err)
+	// init redis
+	if ok := this.initRedis(); !ok {
 		return false
 	}
 
@@ -57,6 +52,35 @@ func (this *Login) Start() bool {
 	// http service
 	this.HandleFunc("/msg", this.request)
 	this.ListenAndServe(xargs.Login.Listen)
+	return true
+}
+
+func (this *Login) initRedis() bool {
+	go_redis_orm.SetNewRedisHandler(go_redis_orm.NewDefaultRedisClient)
+
+	// db account
+	this.dbAccountName = common.GetArgs().DbAccount.Name
+	err := go_redis_orm.CreateDB(
+		common.GetArgs().DbAccount.Name,
+		common.GetArgs().DbAccount.Addrs,
+		common.GetArgs().DbAccount.Password,
+		common.GetArgs().DbAccount.DBIndex)
+	if err != nil {
+		common.GetLogger().Errorln(err)
+		return false
+	}
+
+	// db token
+	this.dbTokenName = common.GetArgs().DbToken.Name
+	err = go_redis_orm.CreateDB(
+		common.GetArgs().DbToken.Name,
+		common.GetArgs().DbToken.Addrs,
+		common.GetArgs().DbToken.Password,
+		common.GetArgs().DbToken.DBIndex)
+	if err != nil {
+		common.GetLogger().Errorln(err)
+		return false
+	}
 	return true
 }
 

@@ -1,45 +1,45 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: hub
+  name: center
   namespace: go-x
   labels:
-    app: hub
+    app: center
 spec:
   ports:
     - port: 30300
       name: ""
   clusterIP: None
   selector:
-    app: hub
+    app: center
 
 ---
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: hub
+  name: center
   namespace: go-x
   labels:
-    app: hub
+    app: center
 spec:
-  serviceName: hub
+  serviceName: center
   selector:
     matchLabels:
-      app: hub
+      app: center
   replicas: 2
   template:
     metadata:
       labels:
-        app: hub
+        app: center
     spec:
       serviceAccountName: sa-go-x
       hostNetwork: true
       dnsPolicy: ClusterFirstWithHostNet
       containers:
-      - name: hub
+      - name: center
         image: 127.0.0.1:5000/fananchong/go-x
         imagePullPolicy: Always
-        command: [ "./hub", "--common-loglevel=0" ]
+        command: [ "./center", "--common-loglevel=0" ]
         env:
         - name: POD_NAME
           valueFrom:

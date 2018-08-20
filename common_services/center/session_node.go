@@ -4,7 +4,7 @@ import (
 	"context"
 	"net"
 
-	service "github.com/fananchong/go-x/common_services"
+	service "github.com/fananchong/go-x/common_services/common"
 	"github.com/fananchong/gotcp"
 )
 

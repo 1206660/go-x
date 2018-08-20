@@ -31,9 +31,9 @@ Sign2 = "3wokZB%q"
 Sign3 = "%2Fi9TRf"
 
 [gateway]
-Connect = [3, 10]            #1: login; 2: gateway; 3: hub; 10: lobby; 11: room
+Connect = [3, 10]            #1: login; 2: gateway; 3: center; 10: lobby; 11: room
 
-[hub]
+[center]
 
 [lobby]
 

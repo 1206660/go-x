@@ -4,16 +4,13 @@ import (
 	"github.com/fananchong/go-x/common"
 )
 
-var DbAccount string
-
 type Args struct {
 	common.ArgsBase
-	Lobby ArgsLobby
+	Center ArgsCenter
 }
 
-type ArgsLobby struct {
+type ArgsCenter struct {
 }
 
 func (this *Args) OnInit() {
-	DbAccount = this.ArgsBase.DbAccount.Name
 }

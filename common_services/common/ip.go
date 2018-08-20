@@ -1,4 +1,4 @@
-package service
+package common
 
 import "github.com/fananchong/multiconfig"
 
@@ -26,4 +26,3 @@ func LoadIpConfig(path string) error {
 func GetIpList() *map[string]string {
 	return &gIP
 }
-
