@@ -5,7 +5,7 @@ import (
 )
 
 func Test_IpConfig(t *testing.T) {
-	err := LoadIpConfig("../assets/ip.toml")
+	err := LoadIpConfig("../../assets/ip.toml")
 	if err == nil {
 		t.Log(gIP)
 	} else {

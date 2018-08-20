@@ -1,5 +1,5 @@
 # 服务名及命名空间
-# 请与 go-x/k8s/ 目录中编排脚本中的服务名、命名空间名 保持一致
+# 请与 go-x/assets/k8s/ 目录中编排脚本中的服务名、命名空间名 保持一致
 
 [[ServerType]]
 Type = 1
@@ -13,15 +13,6 @@ Namespace = "go-x"
 
 [[ServerType]]
 Type = 3
-Name = "hub"
+Name = "center"
 Namespace = "go-x"
 
-[[ServerType]]
-Type = 10
-Name = "lobby"
-Namespace = "go-x"
-
-[[ServerType]]
-Type = 11
-Name = "room"
-Namespace = "go-x"
